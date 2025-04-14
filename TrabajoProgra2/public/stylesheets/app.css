@@ -1,24 +1,24 @@
 /*====== Fonts ======*/
-@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pompiere&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Shadows+Into+Light&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Shadows+Into+Light&display=swap");
 
 /*====== Variables ======*/
 :root {
-  --pink: #d1227f; 
+  --yellow: #fdc4e3; 
   --dark-blue: #03264C;
-  --light-blue: #1259c3;
+  --light-blue: #c312a3;
   --gray: #666666;
   --light-gray: #ebebeb;
   --green: #39b54a;
-  --base-font-family: "Shadows Into Light", cursive;
+  --base-font-family: "Geist Mono", monospace;
+
 }
 .tituloPrincipal {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Geist Mono", monospace;;
 }
 
 h1, h2 {
-  font-family: "Tangerine", cursive;
+  font-family: "Geist Mono", monospace;
 }
 
 
@@ -167,15 +167,16 @@ hr {
 
 /*====== Banner ======*/
 .banner {
-  background-image: url(/images/banner.webp);
+  background-image: url(/images/captura1.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  height: 80px;
+  height: 100px;
   
 }
-.banner2 {
-  width: 20px;
+
+.banner2{
+  width: 0px;
 }
 
 
