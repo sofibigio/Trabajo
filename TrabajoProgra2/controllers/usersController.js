@@ -7,7 +7,7 @@ const usersController = {
     },
     miPerfil: function (req, res) {
         console.log(db),
-        res.render('profile', {user: db.usuario}) 
+        res.render('profile', {user: db.usuario, productos: db.productos}) 
     },
     register: function (req, res) {
         res.render('register')
