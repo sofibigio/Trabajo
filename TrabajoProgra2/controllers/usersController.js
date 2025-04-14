@@ -1,4 +1,4 @@
-db = require('../bd/data')
+db = require('../db/data')
 
 
 const usersController = {

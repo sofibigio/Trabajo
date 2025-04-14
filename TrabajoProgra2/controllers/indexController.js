@@ -1,4 +1,4 @@
-const data = require("../bd/data");
+const data = require("../db/data");
 const productos = data.productos;
 const controller = {
     index: function(req, res){

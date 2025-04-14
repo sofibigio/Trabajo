@@ -10,7 +10,7 @@ productos: [{
     imagen: "/images/products/foto1.jpg",
     descripcion: "Rimel waterproof 24hs",
     nombre: "RIMEL",
-    comentarios: [{nombre: "Lucia Fernandez", texto:"Muy bueno!", imgaen:"/images/fotoperfil.webp"}, ]
+    comentarios: [{nombre: "Lucia Fernandez", texto:"Muy bueno!", imgen:"/images/fotoperfil.webp"}, ]
 }, {
     id: 2,
     imagen: "/images/products/foto2.webp",
