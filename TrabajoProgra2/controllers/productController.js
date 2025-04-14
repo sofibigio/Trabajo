@@ -12,7 +12,8 @@ const controller = {
     }, 
     agregar: function(req,res){
         res.render ("product-add", {
-            usuario:user
+            usuario:user,
+            user: user
         })
     }
     
