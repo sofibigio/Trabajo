@@ -4,6 +4,7 @@ USE punto_4;
 
 CREATE TABLE usuarios(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    nombre_usuario VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     contrasenia VARCHAR(255) NOT NULL, 
     fecha DATE,
@@ -26,7 +27,7 @@ CREATE TABLE productos (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
-DROP TABLE productos;
+
 
 CREATE TABLE comentarios (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -40,14 +41,14 @@ CREATE TABLE comentarios (
 	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
-DROP TABLE comentarios;
 
-INSERT INTO usuarios (id, email, contrasenia, fecha, dni, foto_perfil)
-VALUES (DEFAULT, "ambar@gmail.com", "AMBAR123", "2005-10-05", "44202618", "ambar.png"),
-(DEFAULT, "sofia@gmail.com", "Sofi33", "2005-10-06", "44999068", "sofi.png"),
-(DEFAULT, "bahia@gmail.com", "Bahia5", "2005-10-07", "44202780", "bahia.png"),
-(DEFAULT, "ama@gmail.com", "Ama23", "2005-10-08", "44112618", "ama.png"),
-(DEFAULT, "jaz@gmail.com", "Jaz11890","2005-10-09", "44267618", "jaz.png");
+
+INSERT INTO usuarios (id, nombre_usuario, email, contrasenia, fecha, dni, foto_perfil)
+VALUES (DEFAULT, "ambar", "ambar@gmail.com", "AMBAR123", "2005-10-05", "44202618", "ambar.png"),
+(DEFAULT, "sofia", "sofia@gmail.com", "Sofi33", "2005-10-06", "44999068", "sofi.png"),
+(DEFAULT, "baha","bahia@gmail.com", "Bahia5", "2005-10-07", "44202780", "bahia.png"),
+(DEFAULT, "ama", "ama@gmail.com", "Ama23", "2005-10-08", "44112618", "ama.png"),
+(DEFAULT, "jaz", "jaz@gmail.com", "Jaz11890","2005-10-09", "44267618", "jaz.png");
 
 INSERT INTO productos (id, id_usuario, nombre_imagen, nombre_producto, descripcion)
 VALUES (DEFAULT, 1, "foto1.jpg", "Rimmel", "Rimmel waterproof 24hs"),
@@ -55,11 +56,11 @@ VALUES (DEFAULT, 1, "foto1.jpg", "Rimmel", "Rimmel waterproof 24hs"),
 (DEFAULT, 3, "foto3.webp", "Blush", "Blush Nars tono 04"),
 (DEFAULT, 4, "foto4.webp", "Gloss Dior", "Gloss marca Dior tono 002"),
 (DEFAULT, 5, "foto5.avif", "Paleta", "Paleta de marrones para ojos"),
-(DEFAULT, 6, "foto6.jpg", "Base", "Base tono medio marca MAC"),
-(DEFAULT, 7, "foto7.jpg", "Gel de cejas", "Gel fijador de cejas 24hs, waterproff"),
-(DEFAULT, 8, "foto8.webp", "Benetint", "Tinta roja tono 04"),
-(DEFAULT, 9, "foto9.webp", "Bronzing drops", "Bronzinf drops de Drunk Elephant"),
-(DEFAULT, 10, "foto10.webp", "Corrector", "Corrector covertura media tono light");
+(DEFAULT, 1, "foto6.jpg", "Base", "Base tono medio marca MAC"),
+(DEFAULT, 2, "foto7.jpg", "Gel de cejas", "Gel fijador de cejas 24hs, waterproff"),
+(DEFAULT, 3, "foto8.webp", "Benetint", "Tinta roja tono 04"),
+(DEFAULT, 4, "foto9.webp", "Bronzing drops", "Bronzinf drops de Drunk Elephant"),
+(DEFAULT, 5, "foto10.webp", "Corrector", "Corrector covertura media tono light");
 
 INSERT INTO comentarios (id, id_post, id_usuario, texto)
 VALUES (DEFAULT, 1, 1, "Excelente"),
