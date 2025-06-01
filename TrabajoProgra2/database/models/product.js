@@ -1,19 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
-    let alias = "Users";
+    let alias = "Products";
     let cols = {
         id: {
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER.UNSIGNED
         },
-        id_usuarios: {
-            type: DataTypes.INEGER.UNSIGNED
+        id_usuario: {
+            type: DataTypes.INEGER.UNSIGNED  //como poner la foreign key
         },
         nombre_imagen: {
             type: DataTypes.STRING(100)
         },
-        nombe_producto: {
+        nombre_producto: {
             type: DataTypes.STRING(100)
+        },
+        descripcion: {
+            type: DataTypes.STRING(300)
         },
         created_at: {
             type: DataTypes.DATE
@@ -25,9 +28,9 @@ module.exports = function(sequelize, DataTypes) {
  
  
     let config = {
-        tableName: "usuarios",
+        tableName: "productos",
         timestamps: false,
     }
-    let Users = sequelize.define(alias, cols, config);
-    return Users;
+    let Products = sequelize.define(alias, cols, config);
+    return Products;
  }
