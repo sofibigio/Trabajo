@@ -10,6 +10,48 @@ const usersController = {
     login: function (req, res) {
         res.render('login')
     },
+
+    procesarLogin: function(req, res){
+        let error = {};
+        if (req.body.email == " ") {
+            error.message = "El email está vacío";
+            res.locals.errors = error;
+            return res.render("login")
+        }
+        else if (req.body.password == " ") {
+            error.message = "La contraseña está vacía";
+            res.locals.errors = error;
+            return res.render("login")
+        }
+        else (Users.findOne ({where: [{email: req.body.email}]})
+        .then(function (resultado) {
+            if (resultado != null) {
+                let contraseña = bcrypt.compareSync(req.body.password, resultado.contrasenia)
+                if (contraseña) {
+                    req.session.User = resultado.dataValues; // preguntar
+                    req.session.User_id = resultado.dataValues.id;
+                    if (req.body.recordar != undefined) {
+                        res.cookie("id", resultado.dataValues.id) 
+                    } return res.redirect("/")
+                } else {error.message = "Contraseña incorrecta";
+                    res.locals.errors = error;
+                    return res.render ("login")
+                }
+            } else {
+                error.message = "Email no registrado";
+                res.locals.errors = error;
+                return res.render ("login")
+             }
+        })
+    )
+    },
+
+    logout: function (req, res){
+        req.session.destroy();
+        res.clearCookie("id");
+        return res.redirect("/");
+    },
+
     miPerfil: function (req, res) {
         console.log(db),
         res.render('profile', {user: db.usuario, productos: db.productos}) 

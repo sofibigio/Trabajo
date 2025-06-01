@@ -17,9 +17,15 @@
 			<div class="col-12">
 				<h2 class="products-title">Registrate</h2>
 			</div>
-			<!-- Show the "ultimos" products -->
+			<div>
+				<h2>
+					<% if (locals.errors){ %>
+						<p><%= locals.errors.message %> </p>
+					<% } %>
+				</h2>
+			</div>
 			<h2 class="col-12"> 
-				<form action="/Users/register"method="GET">
+				<form action="/Users/register"method="POST"> 
 					<label for="nameUsuario">Nombre de usuario:</label>
 					<input type="text" id="nameUsuario" name="nameUsuario" required>
 					<label for="email">Email:</label>
