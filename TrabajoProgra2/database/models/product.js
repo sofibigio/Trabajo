@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER.UNSIGNED
         },
         id_usuario: {
-            type: DataTypes.INEGER.UNSIGNED  //como poner la foreign key
+            type: DataTypes.INTEGER.UNSIGNED  //como poner la foreign key
         },
         nombre_imagen: {
             type: DataTypes.STRING(100)
@@ -32,5 +32,15 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: false,
     }
     let Products = sequelize.define(alias, cols, config);
+    Products.associate = function(models){
+        Products.belongsTo(models.Users, {
+            as: "productos",
+            foreignKey: "id_usuario"
+        });
+        Products.hasMany(models.Comment, {
+            as: "comentarios",
+            foreignKey: "id_post", 
+        })
+    };
     return Products;
  }

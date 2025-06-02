@@ -1,9 +1,10 @@
-const op = db.Sequelize.Op
 const db = require("../database/models")
+const op = db.Sequelize.Op
 const Products = db.Products
 
 const controller = {
     index: function(req, res){
+        
         res.render("index", {productos: productos})
     },
     buscar: function(req, res){

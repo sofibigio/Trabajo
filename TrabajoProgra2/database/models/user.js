@@ -1,3 +1,5 @@
+const { FOREIGNKEYS } = require("sequelize/lib/query-types");
+
 module.exports = function(sequelize, DataTypes) {
     let alias = "Users";
     let cols = {
@@ -32,12 +34,21 @@ module.exports = function(sequelize, DataTypes) {
         },
     }
  
- 
     let config = {
         tableName: "usuarios",
         timestamps: false,
     }
     let Users = sequelize.define(alias, cols, config);
+    Users.associate = function(models){
+        Users.hasMany(models.Products, {
+            as: "productos",
+            foreignKey: "id_usuario"
+        });
+        Users.hasMany(models.Comment, {
+            as: "comentario",
+            foreignKey: "id_usuario"
+        })
+    }
     return Users;
  }
  
