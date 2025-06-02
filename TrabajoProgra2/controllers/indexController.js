@@ -1,31 +1,35 @@
+
 const db = require("../database/models")
 const op = db.Sequelize.Op
 const Products = db.Products
 
 const controller = {
     index: function(req, res){
-        
-        res.render("index", {productos: productos})
+          Products.findAll({
+            include: [{association: "usuarios"}, {association: "comentarios"}],
+          }).then(function(resultados){
+            
+            res.render("index", {productos: resultados})
+          });
+
     },
     buscar: function(req, res){
         let busqueda = req.query.search;
-        let error = {};
-        Products.FindAll({
-            include: [{association: "user"}, {association: "comentarios"}], where:{
-                [op.or]:[{nombre_producto:{
-                    [op.like]: `%${busqueda}`
-
-                }},
-            {descripcion:{ //acordarse de ponerlo en el modelo
-                 [op.like]: `%${busqueda}`
-            }} 
+        console.log(busqueda);
+        
+        Products.findAll({
+            include: [{association: "usuarios"}, {association: "comentarios"}], 
+            where: [ 
+                { nombre_producto: {[op.like]: `%${busqueda}%`}}
             ]
-            }
-        }).then(function(coincidencia){
-            if(coincidencia.length==0){error.message= "No hay resultado para tu busqueda";
-                res.local.errors = error;
-                return res.render("search-results", {productos: coincidencia})
-            } else{return res.render("search-results", {productos: coincidencia})}
+        }).then(function(resultado){
+            console.log(resultado[0].id);
+            
+            res.render("search-results", {productos: resultado} )
+            
+        }).catch(function (error) {
+            console.log(error);
+            
         })
     },
     

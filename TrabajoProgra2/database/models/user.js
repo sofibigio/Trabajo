@@ -26,10 +26,10 @@ module.exports = function(sequelize, DataTypes) {
         foto_perfil:{
             type: DataTypes.STRING(255)
         },
-        created_at: {
+        createdAt: {
             type: DataTypes.DATE
         },
-        updated_at: {
+        updatedAt: {
             type: DataTypes.DATE
         },
     }
@@ -45,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: "id_usuario"
         });
         Users.hasMany(models.Comment, {
-            as: "comentario",
+            as: "comentarios",
             foreignKey: "id_usuario"
         })
     }

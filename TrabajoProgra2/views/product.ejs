@@ -18,7 +18,7 @@
 		<div class="product-detail">
 			<div class="row">
 				<article class="col-12 col-lg-8 product-detail-info">
-					<img src= "<%= producto.imagen %>"alt="" class="product-detail-img">
+					<img src= "/images/products/<%= producto.nombre_imagen %>"alt="imagen del producto" class="product-detail-img">
 					<p class="product-detail-description">
 						<%= producto.descripcion %></p>
 				</article>
@@ -28,12 +28,11 @@
 							
 						
 						<article>
-							<img src=<%= comentario[i].imgen %>  alt="">
+							<img src="/images/users/<%= comentario[i].usuarios.foto_perfil %>"  alt="foto del perfil">
 							<div class="data">
 								<p class="user">
-								<strong> <a href="/users"><%= comentario[i].nombre %></a> </strong>
+								<strong> <a href="/users"><%= comentario[i].usuarios.nombre_usuario %></a> </strong>
 								<%= comentario[i].texto %>
-								<%= comentario[i].imagen %> 
 								</p>
 								  
 							</div>

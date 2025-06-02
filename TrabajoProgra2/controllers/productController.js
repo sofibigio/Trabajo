@@ -1,14 +1,32 @@
-const data = require("../db/data");
-const user = data.usuario; 
-const productos = data.productos; 
+
+const db = require("../database/models");
+
+
 const controller = {
 
     detalle: function(req,res){
-        const producto = productos[0]; 
-        res.render ('product', {
-            producto: producto, 
-            comentario: producto.comentarios
-        });
+        db.Products.findByPk(req.params.id, {
+            include: [
+                {association: "comentarios", include: [{association: "usuarios"}]}
+            ]
+        })
+        .then(function (resultados){
+
+            
+
+            if (resultados) {
+            return res.render('product', {
+            producto: resultados, 
+            comentario: resultados.comentarios
+             });
+            }
+           
+           console.log(resultados);
+           
+            
+
+        })
+        
     }, 
     agregar: function(req,res){
         res.render ("product-add", {

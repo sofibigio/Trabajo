@@ -18,12 +18,12 @@
 				<h2 class="products-title">Resultados de búsqueda</h2>
 			</div>
 			<!-- Show the "ultimos" products -->
-			<% for(let i=0; i<10; i++){%>
+			<% for(let i=0; i< productos.length ; i++){%>
                 <div class="col-12 col-sm-6 col-lg-3">
                     <section class="product-box">
                         <a href="/product/<%=productos[i].id%>">
                             <figure class="product-box_image">
-                                <img src=" <%= productos[i].imagen %>" alt="cosmeticos">
+                                <img src=" images/products/<%= productos[i].nombre_imagen %>" alt="cosmeticos">
                             </figure>
                             <article class="product-box_data">
                                 <h2> <%= productos[i].nombre %> </h2>

@@ -12,10 +12,13 @@ module.exports = function(sequelize, DataTypes) {
         id_usuario: {
             type: DataTypes.INTEGER.UNSIGNED //foreign key
         },
-        created_at: {
+        texto: {
+            type: DataTypes.STRING(200)
+        },
+        createdAt: {
             type: DataTypes.DATE
         },
-        updated_at: {
+        updatedAt: {
             type: DataTypes.DATE
         },
         //pregunatr si va deleted_at
@@ -33,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: "id_post"
         });
         Comment.belongsTo(models.Users, {
-            as: "comentario",
+            as: "usuarios",
             foreignKey: "id_usuario"
         })
 
