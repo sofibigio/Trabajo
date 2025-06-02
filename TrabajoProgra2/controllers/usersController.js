@@ -53,65 +53,70 @@ const usersController = {
     },
 
     miPerfil: function (req, res) {
-        console.log(db),
-        res.render('profile', {user: db.usuario, productos: db.productos}) 
+        // console.log(db),
+        db.Products.findByPk(req.params.id, {
+            include: [
+                {association: "comentarios", include: [{association: "usuarios"}]}
+            ]
+        })
+        .then(function(resultados) {
+            res.send(resultados)
+            
+            res.render('profile', {user: resultados}) 
+        })
     },
     register: function (req, res) {
         res.render('register')
     },
     procesarRegister: function (req, res) {
-        let info = req.body;
-        let error = {}; 
-        if (info.nameUsuario== ""){
-            error.message="Nombre de usuario obligatorio";
-            res.locals.errors=error;
-            return res.render('register')
-        } else if (info.password==""){ 
-            error.message="Contraseña obligatoria";
-            res.locals.errors=error;
-            return res.render('register') 
+        let contrasenia = bcrypt.hashSync(req.body.password, 10)
+        let nombre_usuario = req.body.nameUsuario
+        let email = req.body.email
+        let fecha = req.body.fecha_nacimiento
+        let dni = req.body.dni
+        let foto_perfil = req.body.img_perfil
+
+        console.log(`password: ${contrasenia}`);
+        console.log(`nombre: ${nombre_usuario}`);
+        console.log(`email: ${email}`);
+        console.log(`fecha: ${fecha}`);
+        console.log(`dni: ${dni}`);
+        console.log(`foto_perfil: ${foto_perfil}`);
+
         
+
+        if (req.body.password == ""){
+            return res.send("la contraseña esta vacia")
         }
-        else if (info.email==""){
-             error.message="Email obligatorio";
-            res.locals.errors=error;
-            return res.render('register') 
-        } else if (info.password.length > 3){
-             error.message="Debe contar con mas de 3 caracteres";
-            res.locals.errors=error;
-            return res.render('register') 
-        } else{
-            let foto = req.file.filename
-            let nuevoUsuario = {
-                nombre_usuario: info.nameUsuario,
-                contrasenia: bcrypt.hashSync(info.password, 12),
-                email: info.email,
-                fecha: info.fecha,
-                dni: info.dni,
-                foto_perfil: foto, //preguntar foto
-                created_at: new Date().toISOString, //preguntar como cargar fecha
-                updated_at: info.updated_at //preguntar como cargar 
-            }
-            let repetido = {
-                where: [{email: req.body.email}]
-            }
-            Users.findOne(repetido)
+        if (req.body.password.length < 3){
+            return res.send("la contraseña debe tener al menos tres caracteres")
+        }
+        Users.findOne({where: {email: email}})
             .then(function(resultado){
-                if (!resultado){
-                    Users.create(nuevoUsuario)
-                    .then(function(){
-                        res.redirect("/Users/login")
-                    }).catch(error)
-                    
-                }else {
-                     error.message="El usuario ya se encuentra registrado";
-                     res.locals.errors=error;
-                     return res.render('register') 
+                if (resultado) {
+                    return res.send("El email ya esta registrado")
                 }
             })
 
+        Users.create( {
+            nombre_usuario: nombre_usuario,
+            email: email, 
+            contrasenia: contrasenia,
+            fecha: fecha,
+            dni: dni,
+            foto_perfil: foto_perfil,
+           
+        })
+        .then(function(resultado){
+            return res.redirect("/");
+        })
+        .catch(function(error){
+            return res.send(error);
+        });
+
+   
             
         }
     } 
-}; 
+; 
 module.exports = usersController;
