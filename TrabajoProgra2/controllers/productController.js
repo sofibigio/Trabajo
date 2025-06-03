@@ -32,6 +32,21 @@ const controller = {
         res.render ("product-add", {
             usuario:user,
             user: user
+        });
+    },
+    procesar: function(req,res){
+        db.Products.create({
+         nombre_imagen: req.body.foto,
+         nombre_producto: req.body.texto,
+         descripcion: req.body.desc,
+         id_usuario: req.session.usuarioLogueado.id_usuario
+        })
+        .then(function(){
+            return res.redirect("/");
+
+        })
+        .catch(function(error){
+            console.log(error);
         })
     }
     

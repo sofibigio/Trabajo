@@ -44,14 +44,12 @@ const usersController = {
 
     miPerfil: function (req, res) {
         // console.log(db),
-        db.Products.findByPk(req.params.id, {
+        db.Users.findByPk(req.params.id, {
             include: [
                 {association: "comentarios", include: [{association: "usuarios"}]}
             ]
         })
         .then(function(resultados) {
-            res.send(resultados)
-            
             res.render('profile', {user: resultados}) 
         })
     },
