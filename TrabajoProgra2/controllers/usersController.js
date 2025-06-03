@@ -12,38 +12,28 @@ const usersController = {
     },
 
     procesarLogin: function(req, res){
-        let error = {};
-        if (req.body.email == " ") {
-            error.message = "El email está vacío";
-            res.locals.errors = error;
-            return res.render("login")
+     let email = req.body.email
+     let password = req.body.password
+
+     Users.findOne({
+        where: {email: email}
+     })
+     .then(function(resultado){
+        console.log(resultado);
+        if(!resultado){
+            return res.send("el email no fue encontrado");
         }
-        else if (req.body.password == " ") {
-            error.message = "La contraseña está vacía";
-            res.locals.errors = error;
-            return res.render("login")
+        if (bcrypt.compareSync(password, resultado.contrasenia)){
+            req.session.resultados = resultado
         }
-        else (Users.findOne ({where: [{email: req.body.email}]})
-        .then(function (resultado) {
-            if (resultado != null) {
-                let contraseña = bcrypt.compareSync(req.body.password, resultado.contrasenia)
-                if (contraseña) {
-                    req.session.User = resultado.dataValues; // preguntar
-                    req.session.User_id = resultado.dataValues.id;
-                    if (req.body.recordar != undefined) {
-                        res.cookie("id", resultado.dataValues.id) 
-                    } return res.redirect("/")
-                } else {error.message = "Contraseña incorrecta";
-                    res.locals.errors = error;
-                    return res.render ("login")
-                }
-            } else {
-                error.message = "Email no registrado";
-                res.locals.errors = error;
-                return res.render ("login")
-             }
-        })
-    )
+
+
+        if(req.body.recordar){
+            res.cookie("datos", resultado, { maxAge: 1000 * 60 * 15 })
+        }
+        return res.redirect("/")
+     })
+    
     },
 
     logout: function (req, res){
@@ -98,7 +88,7 @@ const usersController = {
                 }
             })
 
-        Users.create( {
+         return Users.create( {
             nombre_usuario: nombre_usuario,
             email: email, 
             contrasenia: contrasenia,
@@ -107,8 +97,11 @@ const usersController = {
             foto_perfil: foto_perfil,
            
         })
-        .then(function(resultado){
-            return res.redirect("/");
+        .then(function(resultadoCreado){
+            if (resultadoCreado){
+                return res.redirect("/");
+            }
+            
         })
         .catch(function(error){
             return res.send(error);
