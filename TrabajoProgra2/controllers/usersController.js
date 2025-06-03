@@ -44,7 +44,11 @@ const usersController = {
 
     miPerfil: function (req, res) {
         // console.log(db),
-        db.Users.findByPk(req.params.id, {
+        id = req.params.id
+        db.Products.findAll({
+            where: {id_usuario:id}
+        }).then(function(productUsuario){
+                db.Users.findByPk(req.params.id, {
             include: [
                 {association: "comentarios", include: [{association: "usuarios"}]}
             ]
@@ -52,6 +56,8 @@ const usersController = {
         .then(function(resultados) {
             res.render('profile', {user: resultados}) 
         })
+        })
+     
     },
     register: function (req, res) {
         res.render('register')

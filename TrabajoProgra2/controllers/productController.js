@@ -12,14 +12,12 @@ const controller = {
         })
         .then(function (resultados){
 
-            
-
-            if (resultados) {
+          
             return res.render('product', {
             producto: resultados, 
             comentario: resultados.comentarios
              });
-            }
+            
            
            console.log(resultados);
            
